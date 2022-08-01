@@ -6,11 +6,11 @@
 Predictions need to be non-zero and saved to csv ffile
 
 ### What was the top ranked model that performed?
-KNeighborsDist
+WeightedEnsemble_L3
 
 ## Exploratory data analysis and feature creation
 ### What did the exploratory analysis find and how did you add additional features?
-Datetime feature was pretty useless in it's current form
+Datetime feature was pretty useless in it's current form. I thought making a month feature will make the predictions more accurate since bike usage is month dependad. The same goes for the hour of the day
 
 ### How much better did your model preform after adding additional features and why do you think that is?
 It got way better - 0.53 vs 1.86. I added features that take into account month of the year and also hour. both these features changes the demand.
@@ -23,11 +23,11 @@ Marginally better, I guess automatic hyperparameters were close to perfect
 I would spend more time on Exploratory data analysis. I think there is more to find in the data.
 
 ### Create a table with the models you ran, the hyperparameters modified, and the kaggle score.
-|model|num_boost_round|num_leaves|num_trials|score|
+|model|hpo1|hpo2|hpo3|score|
 |--|--|--|--|--|
-|initial|default|default|default|1.86430|
-|add_features|default|default|default|0.53706|
-|hpo|100|range: 26-66 with default 36|5|0.51885|
+|initial|default|default|default|1.81093|
+|add_features|default|default|default|0.70688|
+|hpo|'GBM': [{'num_boost_round': Int: lower=10, upper=1000,<br>   'num_leaves': Int: lower=26, upper=66,<br>   'max_bin': 1023,<br>   'learning_rate': Real: lower=0.001, upper=0.1,<br>   'boosting': 'dart',<br>   'ag_args': {'name_suffix': 'Dart'}},<br>  {'num_boost_round': Int: lower=10, upper=1000,<br>   'num_leaves': Int: lower=26, upper=66,<br>   'max_bin': 1023,<br>   'learning_rate': Real: lower=0.001, upper=0.1,<br>   'boosting': 'gbdt',<br>   'ag_args': {'name_suffix': 'Gbdt'}},<br>  {'num_boost_round': Int: lower=10, upper=1000,<br>   'num_leaves': Int: lower=26, upper=66,<br>   'max_bin': 1023,<br>   'learning_rate': Real: lower=0.001, upper=0.1,<br>   'boosting': 'rf',<br>   'bagging_fraction': 0.5,<br>   'bagging_freq': 3,<br>   'ag_args': {'name_suffix': 'RF'}},<br>  {'num_boost_round': Int: lower=10, upper=1000,<br>   'num_leaves': Int: lower=26, upper=66,<br>   'max_bin': 1023,<br>   'learning_rate': Real: lower=0.001, upper=0.1,<br>   'boosting': 'goss',<br>   'ag_args': {'name_suffix': 'Goss'}}]|'CAT': [{'depth': Int: lower=4, upper=10,<br>   'learning_rate': 0.01,<br>   'iterations': Int: lower=10, upper=100},<br>  {'depth': Int: lower=4, upper=10,<br>   'learning_rate': 0.02,<br>   'iterations': Int: lower=10, upper=100},<br>  {'depth': Int: lower=4, upper=10,<br>   'learning_rate': 0.03,<br>   'iterations': Int: lower=10, upper=100},<br>  {'depth': Int: lower=4, upper=10,<br>   'learning_rate': 0.04,<br>   'iterations': Int: lower=10, upper=100}]|'XGB': [{'booster': 'dart', 'ag_args': {'name_suffix': 'Dart'}},<br>  {'booster': 'gbtree', 'ag_args': {'name_suffix': 'GBTree'}}]|0.47433|
 
 ### Create a line plot showing the top model score for the three (or more) training runs during the project.
 
@@ -38,4 +38,5 @@ I would spend more time on Exploratory data analysis. I think there is more to f
 ![model_test_score.png](img/model_test_score.png)
 
 ## Summary
-We find in here that Autogluon can make it easy for us to train multiple models on one dataset and find the best one automatically, but we still need to perform Exploratory data analysis like we would normally and it has a huge impact on model performance
+We find in here that Autogluon can make it easy for us to train multiple models on one dataset and find the best one automatically, but we still need to perform Exploratory data analysis like we would normally and it has a huge impact on model performance.
+First I looked at the data to find out what features can be created, later tried and made some research on hyperparameters. It seems rather pointless to try and change hyperparameters in automl training scenario. Hyperparameters were not part of the course so I don't understand why they are here. I don't know how this project can be completed within the estimated time with the vague instructions provided. I would much prefer a clearly defined goal.
